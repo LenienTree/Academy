@@ -16,6 +16,20 @@ import { ClosingCtaSection } from "@/components/sections/ClosingCtaSection";
 import { TestimonialModal } from "@/components/modals/TestimonialModal";
 import { EventDetailModal } from "@/components/modals/EventDetailModal";
 
+import type {
+  SiteConfig,
+  EventItem as DbEventItem,
+  TestimonialItem as DbTestimonialItem,
+  StateHeadItem as DbStateHeadItem,
+} from "@/types/database";
+
+export interface LandingExperienceProps {
+  siteConfig?: SiteConfig;
+  events?: DbEventItem[];
+  testimonials?: DbTestimonialItem[];
+  stateHeads?: DbStateHeadItem[];
+}
+
 function ModalsHost() {
   const { activeModal, selectedTestimonial, selectedEvent, closeModal } =
     useModal();
@@ -34,15 +48,20 @@ function ModalsHost() {
   );
 }
 
-export function LandingExperience() {
+export function LandingExperience({
+  siteConfig,
+  events,
+  testimonials,
+  stateHeads,
+}: LandingExperienceProps = {}) {
   return (
     <ModalProvider>
-      <HeroSection />
+      <HeroSection siteConfig={siteConfig} />
       <ValueBand />
-      <TestimonialsSection />
+      <TestimonialsSection testimonials={testimonials} />
       <StorySection />
-      <EventsSection />
-      <StateHeadsSection />
+      <EventsSection events={events} />
+      <StateHeadsSection stateHeads={stateHeads} />
       <BeInTheRoomSection />
       <SpeakersJudgesSection />
       <ProgramsSection />
@@ -52,3 +71,5 @@ export function LandingExperience() {
     </ModalProvider>
   );
 }
+
+export default LandingExperience;

@@ -75,6 +75,7 @@ export function TestimonialModal({
               alt={testimonial.name}
               width={424}
               height={444}
+              unoptimized={testimonial.img.startsWith("http")}
               style={{
                 width: "100%",
                 height: "100%",
@@ -92,8 +93,14 @@ export function TestimonialModal({
               Sample text · replace with the student&apos;s own words
             </span>
           )}
-          <div className="stars" role="img" aria-label="5 out of 5 stars">
-            ★★★★★
+          {/* Dynamic Star Rating */}
+          <div
+            className="stars text-tangerine text-lg tracking-widest font-sans"
+            role="img"
+            aria-label={`${Math.min(5, Math.max(1, testimonial.stars ?? 5))} out of 5 stars`}
+          >
+            {'★'.repeat(Math.min(5, Math.max(1, testimonial.stars ?? 5)))}
+            {'☆'.repeat(5 - Math.min(5, Math.max(1, testimonial.stars ?? 5)))}
           </div>
           <blockquote id="popQuote">
             “{testimonial.q || testimonial.quote}”

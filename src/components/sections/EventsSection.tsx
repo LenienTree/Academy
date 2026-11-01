@@ -5,9 +5,35 @@ import Image from "next/image";
 import { EVENTS, TBA } from "@/data/academyData";
 import { Marquee } from "@/components/ui/Marquee";
 import { useModal } from "@/context/ModalContext";
+import type { EventItem as DbEventItem } from "@/types/database";
+import type { EventItem } from "@/types/academy";
 
-export function EventsSection() {
+interface EventsSectionProps {
+  events?: (DbEventItem | EventItem)[];
+}
+
+export function EventsSection({ events }: EventsSectionProps = {}) {
   const { openEventModal } = useModal();
+
+  const items: EventItem[] =
+    events && events.length > 0
+      ? events.map((e, idx) => {
+          if ("is_published" in e) {
+            return {
+              id: e.id,
+              t: e.title,
+              title: e.title,
+              venue: e.venue,
+              date: e.date,
+              about: e.about,
+              details: e.about,
+              img: e.image_url || "/assets/events/campus-event-1.jpg",
+              sceneSeed: idx + 1,
+            };
+          }
+          return e;
+        })
+      : EVENTS;
 
   return (
     <section className="sec deep" id="events">
@@ -21,9 +47,9 @@ export function EventsSection() {
       </div>
 
       <Marquee id="t-events" duration={64}>
-        {EVENTS.map((event, i) => (
+        {items.map((event, i) => (
           <button
-            key={`event-${i}`}
+            key={`event-${event.id ?? i}`}
             className="ecard"
             type="button"
             data-i={i}
@@ -37,6 +63,7 @@ export function EventsSection() {
                 width={360}
                 height={240}
                 loading="lazy"
+                unoptimized={event.img.startsWith("http")}
                 style={{
                   width: "100%",
                   height: "100%",

@@ -5,9 +5,10 @@ export interface TestimonialItem {
   q: string;
   img?: string;
   li?: string;
-  id?: number;
+  id?: number | string;
   quote?: string;
   role?: string;
+  stars?: number;
   avatarSeed?: number;
 }
 
@@ -19,7 +20,7 @@ export interface EventItem {
   venue: string;
   date: string;
   about: string;
-  id?: number;
+  id?: number | string;
   title?: string;
   details?: string;
   sceneSeed?: number;

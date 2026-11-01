@@ -3,9 +3,22 @@
 import { useEffect, useRef } from "react";
 import Link from "next/link";
 import { REGISTRATION_URL } from "@/data/academyData";
+import type { SiteConfig } from "@/types/database";
 
-export function HeroSection() {
+interface HeroSectionProps {
+  siteConfig?: SiteConfig;
+}
+
+export function HeroSection({ siteConfig }: HeroSectionProps = {}) {
   const videoRef = useRef<HTMLVideoElement>(null);
+  const eyebrow = siteConfig?.eyebrow || "FullStack + AI · Live program";
+  const title = siteConfig?.title || "Learn it live. Build it real.";
+  const subText =
+    siteConfig?.sub_text ||
+    "Practical knowledge from founders and industry mentors. Seventeen days of theory, thirteen days of building.";
+  const regUrl = siteConfig?.reg_url || REGISTRATION_URL;
+  const heroVideo = siteConfig?.hero_video_url || "/assets/hero.mp4";
+  const heroPoster = siteConfig?.hero_poster_url || "/assets/hero-poster.jpg";
 
   useEffect(() => {
     const video = videoRef.current;
@@ -58,20 +71,25 @@ export function HeroSection() {
     <section className="hero">
       <div className="wrap hero-grid">
         <div>
-          <p className="eyebrow">FullStack + AI · Live program</p>
+          <p className="eyebrow">{eyebrow}</p>
           <h1 style={{ textWrap: "balance" }}>
-            Learn it live.
-            <br />
-            Build it <em>real.</em>
+            {title === "Learn it live. Build it real." ? (
+              <>
+                Learn it live.
+                <br />
+                Build it <em>real.</em>
+              </>
+            ) : (
+              title
+            )}
           </h1>
           <p className="sub text-ink60 mt-4">
-            Practical knowledge from founders and industry mentors. Seventeen days
-            of theory, thirteen days of building.
+            {subText}
           </p>
           <div className="cta-row">
             <a
               className="btn reg"
-              href={REGISTRATION_URL}
+              href={regUrl}
               target="_blank"
               rel="noopener noreferrer"
             >
@@ -92,8 +110,8 @@ export function HeroSection() {
             <video
               ref={videoRef}
               id="heroVid"
-              src="/assets/hero.mp4"
-              poster="/assets/hero-poster.jpg"
+              src={heroVideo}
+              poster={heroPoster}
               autoPlay
               muted
               loop
