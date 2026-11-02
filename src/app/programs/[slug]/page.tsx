@@ -41,6 +41,7 @@ export default async function ProgramPage({ params }: PageProps) {
     notFound();
   }
 
+  const isLiveClasses = slug === "live-classes";
   const otherPrograms = PROGRAMS.filter((p) => p.key !== slug);
 
   return (
@@ -95,8 +96,9 @@ export default async function ProgramPage({ params }: PageProps) {
             <p className="eyebrow">Plans</p>
             <h2 className="h2">Choose your plan.</h2>
             <p className="lede">
-              Three levels for {program.title}. Each one includes everything in
-              the one before it.
+              {isLiveClasses
+                ? `Three levels for ${program.title}. Each one includes everything in the one before it.`
+                : `Three levels for ${program.title}. Admissions opening soon.`}
             </p>
           </div>
 
@@ -106,11 +108,15 @@ export default async function ProgramPage({ params }: PageProps) {
                 key={tier.name}
                 className={`tier ${tier.top ? "top" : ""}`}
               >
-                <span className="tag">{tier.tag}</span>
+                <span className="tag">
+                  {isLiveClasses ? tier.tag : "Coming Soon"}
+                </span>
                 <h3>{tier.name}</h3>
                 <p className="fee">
                   Fee
-                  <b className="tba">To be added</b>
+                  <b className="tba">
+                    {isLiveClasses ? "To be added" : "Coming soon"}
+                  </b>
                 </p>
                 <ul>
                   {tier.inherit && (
@@ -120,19 +126,32 @@ export default async function ProgramPage({ params }: PageProps) {
                     <li key={idx}>{item}</li>
                   ))}
                 </ul>
-                <a
-                  className={`btn ${tier.top ? "" : "line"}`}
-                  href={REGISTRATION_URL}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                >
-                  Choose {tier.name} →
-                </a>
+                {isLiveClasses ? (
+                  <a
+                    className={`btn ${tier.top ? "" : "line"}`}
+                    href={REGISTRATION_URL}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    Choose {tier.name} →
+                  </a>
+                ) : (
+                  <button
+                    type="button"
+                    disabled
+                    aria-disabled="true"
+                    className={`btn ${tier.top ? "" : "line"} opacity-50 cursor-not-allowed pointer-events-none select-none`}
+                  >
+                    Coming Soon
+                  </button>
+                )}
               </article>
             ))}
           </div>
           <p className="plan-note">
-            Fees and dates will be shown here once confirmed.
+            {isLiveClasses
+              ? "Fees and dates will be shown here once confirmed."
+              : "Admissions for this program will open soon. Stay tuned for dates and curriculum details."}
           </p>
         </section>
 

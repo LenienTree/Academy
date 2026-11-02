@@ -194,10 +194,11 @@ a {
 }
 
 /* header */
-.top {
+header.top,
+.top:not(.tier) {
   position: sticky;
   top: env(safe-area-inset-top, 0px);
-  z-index: 40;
+  z-index: 50;
   background: var(--cream);
   border-bottom: 1px solid rgba(25, 24, 29, .12);
 }
@@ -1424,6 +1425,9 @@ details p {
 }
 
 .tier.top {
+  position: relative;
+  top: auto;
+  z-index: 1;
   background: var(--ink);
   color: var(--cream);
 }
