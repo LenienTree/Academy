@@ -34,7 +34,7 @@ export function Footer() {
           <Link href="/#story" className="hover:text-tangerine transition-colors">
             About
           </Link>
-          <Link href="/#room" className="hover:text-tangerine transition-colors">
+          <Link href="/#speakers" className="hover:text-tangerine transition-colors">
             Experts
           </Link>
           <Link href="/#faq" className="hover:text-tangerine transition-colors">

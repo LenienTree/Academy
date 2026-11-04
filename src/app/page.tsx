@@ -1,16 +1,28 @@
 import LandingExperience from "@/components/home/LandingExperience";
-import { getSiteConfig, getEvents, getTestimonials, getStateHeads } from "@/lib/data";
+import { connection } from "next/server";
+import {
+  getSiteConfig,
+  getEvents,
+  getTestimonials,
+  getStateHeads,
+  getSpeakers,
+  getJudges,
+} from "@/lib/data";
 
 export const instant = false;
 
 export default async function HomePage() {
+  await connection();
   // Fetch from Supabase with safe internal fallbacks
-  const [siteConfig, events, testimonials, stateHeads] = await Promise.all([
-    getSiteConfig(),
-    getEvents(),
-    getTestimonials(),
-    getStateHeads(),
-  ]);
+  const [siteConfig, events, testimonials, stateHeads, speakers, judges] =
+    await Promise.all([
+      getSiteConfig(),
+      getEvents(),
+      getTestimonials(),
+      getStateHeads(),
+      getSpeakers(),
+      getJudges(),
+    ]);
 
   return (
     <LandingExperience
@@ -18,6 +30,8 @@ export default async function HomePage() {
       events={events}
       testimonials={testimonials}
       stateHeads={stateHeads}
+      speakers={speakers}
+      judges={judges}
     />
   );
 }

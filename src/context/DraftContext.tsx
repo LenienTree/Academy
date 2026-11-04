@@ -1,7 +1,7 @@
 'use client';
 
 import React, { createContext, useContext, useState, useTransition } from 'react';
-import type { SiteConfig, EventItem, TestimonialItem, StateHeadItem, SpeakerItem, JudgeItem } from '@/types/database';
+import type { SiteConfig, EventItem, TestimonialItem, StateHeadItem, SpeakerItem, JudgeItem, RoomCardItem } from '@/types/database';
 
 export type PublishStatus = 'idle' | 'saving' | 'purging_cache' | 'success' | 'error';
 
@@ -12,6 +12,7 @@ export interface DraftContextType {
   stateHeads: StateHeadItem[];
   speakers: SpeakerItem[];
   judges: JudgeItem[];
+  roomCards: RoomCardItem[];
   
   updateSiteConfig: (updates: Partial<SiteConfig>) => void;
   updateEvent: (id: string, updates: Partial<EventItem>) => void;
@@ -27,10 +28,13 @@ export interface DraftContextType {
   updateJudge: (id: string, updates: Partial<JudgeItem>) => void;
   addJudge: (judge: JudgeItem) => void;
   removeJudge: (id: string) => void;
+  updateRoomCard: (id: string, updates: Partial<RoomCardItem>) => void;
+  addRoomCard: (card: RoomCardItem) => void;
+  removeRoomCard: (id: string) => void;
 
   isDirty: boolean;
-  activeTab: 'hero' | 'events' | 'testimonials' | 'stateHeads' | 'speakersJudges';
-  setActiveTab: (tab: 'hero' | 'events' | 'testimonials' | 'stateHeads' | 'speakersJudges') => void;
+  activeTab: 'hero' | 'events' | 'testimonials' | 'stateHeads' | 'speakersJudges' | 'room';
+  setActiveTab: (tab: 'hero' | 'events' | 'testimonials' | 'stateHeads' | 'speakersJudges' | 'room') => void;
   viewportMode: 'desktop' | 'tablet' | 'mobile';
   setViewportMode: (mode: 'desktop' | 'tablet' | 'mobile') => void;
   
@@ -51,6 +55,7 @@ interface DraftProviderProps {
   initialStateHeads: StateHeadItem[];
   initialSpeakers?: SpeakerItem[];
   initialJudges?: JudgeItem[];
+  initialRoomCards?: RoomCardItem[];
   children: React.ReactNode;
   onPublish: (data: {
     siteConfig: SiteConfig;
@@ -59,6 +64,7 @@ interface DraftProviderProps {
     stateHeads: StateHeadItem[];
     speakers: SpeakerItem[];
     judges: JudgeItem[];
+    roomCards: RoomCardItem[];
   }) => Promise<{ success: boolean; error?: string }>;
 }
 
@@ -69,6 +75,7 @@ export function DraftProvider({
   initialStateHeads,
   initialSpeakers = [],
   initialJudges = [],
+  initialRoomCards = [],
   children,
   onPublish,
 }: DraftProviderProps) {
@@ -79,6 +86,7 @@ export function DraftProvider({
     stateHeads: initialStateHeads,
     speakers: initialSpeakers,
     judges: initialJudges,
+    roomCards: initialRoomCards,
   });
 
   const [siteConfig, setSiteConfig] = useState<SiteConfig>(initialConfig);
@@ -87,8 +95,9 @@ export function DraftProvider({
   const [stateHeads, setStateHeads] = useState<StateHeadItem[]>(initialStateHeads);
   const [speakers, setSpeakers] = useState<SpeakerItem[]>(initialSpeakers);
   const [judges, setJudges] = useState<JudgeItem[]>(initialJudges);
+  const [roomCards, setRoomCards] = useState<RoomCardItem[]>(initialRoomCards);
 
-  const [activeTab, setActiveTab] = useState<'hero' | 'events' | 'testimonials' | 'stateHeads' | 'speakersJudges'>('hero');
+  const [activeTab, setActiveTab] = useState<'hero' | 'events' | 'testimonials' | 'stateHeads' | 'speakersJudges' | 'room'>('hero');
   const [viewportMode, setViewportMode] = useState<'desktop' | 'tablet' | 'mobile'>('desktop');
   const [isDirty, setIsDirty] = useState(false);
 
@@ -166,6 +175,21 @@ export function DraftProvider({
     setIsDirty(true);
   };
 
+  const updateRoomCard = (id: string, updates: Partial<RoomCardItem>) => {
+    setRoomCards((prev) => prev.map((c) => (c.id === id ? { ...c, ...updates } : c)));
+    setIsDirty(true);
+  };
+
+  const addRoomCard = (newCard: RoomCardItem) => {
+    setRoomCards((prev) => [...prev, newCard]);
+    setIsDirty(true);
+  };
+
+  const removeRoomCard = (id: string) => {
+    setRoomCards((prev) => prev.filter((c) => c.id !== id));
+    setIsDirty(true);
+  };
+
   const discardDraft = () => {
     setSiteConfig(baseline.siteConfig);
     setEvents(baseline.events);
@@ -173,6 +197,7 @@ export function DraftProvider({
     setStateHeads(baseline.stateHeads);
     setSpeakers(baseline.speakers);
     setJudges(baseline.judges);
+    setRoomCards(baseline.roomCards || initialRoomCards || []);
     setIsDirty(false);
   };
 
@@ -191,7 +216,7 @@ export function DraftProvider({
         await new Promise((r) => setTimeout(r, 600)); // Visual pacing for step 1
 
         setPublishStatus('purging_cache');
-        const res = await onPublish({ siteConfig, events, testimonials, stateHeads, speakers, judges });
+        const res = await onPublish({ siteConfig, events, testimonials, stateHeads, speakers, judges, roomCards });
 
         if (res.success) {
           setIsDirty(false);
@@ -216,6 +241,7 @@ export function DraftProvider({
         stateHeads,
         speakers,
         judges,
+        roomCards,
         updateSiteConfig,
         updateEvent,
         addEvent,
@@ -230,6 +256,9 @@ export function DraftProvider({
         updateJudge,
         addJudge,
         removeJudge,
+        updateRoomCard,
+        addRoomCard,
+        removeRoomCard,
         isDirty,
         activeTab,
         setActiveTab,

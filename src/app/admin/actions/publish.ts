@@ -2,7 +2,7 @@
 
 import { createClient } from '@/lib/supabase/server';
 import { revalidatePath } from 'next/cache';
-import type { SiteConfig, EventItem, TestimonialItem, StateHeadItem, SpeakerItem, JudgeItem } from '@/types/database';
+import type { SiteConfig, EventItem, TestimonialItem, StateHeadItem, SpeakerItem, JudgeItem, RoomCardItem } from '@/types/database';
 
 export async function publishAcademyContent(payload: {
   siteConfig: SiteConfig;
@@ -11,6 +11,7 @@ export async function publishAcademyContent(payload: {
   stateHeads: StateHeadItem[];
   speakers: SpeakerItem[];
   judges: JudgeItem[];
+  roomCards?: RoomCardItem[];
 }) {
   const supabase = await createClient();
 
@@ -108,7 +109,28 @@ export async function publishAcademyContent(payload: {
     if (judgesErr) return { success: false, error: `Judges: ${judgesErr.message}` };
   }
 
-  // 7. Invalidate Next.js cache
+  // 7. Commit room_cards
+  if (payload.roomCards && payload.roomCards.length > 0) {
+    try {
+      await supabase.from('room_cards').delete().neq('id', '00000000-0000-0000-0000-000000000000');
+      const formattedCards = payload.roomCards.map((c, idx) => ({
+        number: c.number || String(idx + 1).padStart(2, '0'),
+        title: c.title,
+        tagline: c.tagline || null,
+        description: c.description,
+        badge: c.badge || null,
+        highlight_text: c.highlight_text || null,
+        sort_order: idx + 1,
+        is_published: true,
+        updated_at: new Date().toISOString(),
+      }));
+      await supabase.from('room_cards').insert(formattedCards);
+    } catch (cardErr) {
+      console.error('Room cards insert error:', cardErr);
+    }
+  }
+
+  // 8. Invalidate Next.js cache
   revalidatePath('/');
   revalidatePath('/admin');
 

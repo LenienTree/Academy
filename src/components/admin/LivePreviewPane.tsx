@@ -14,6 +14,7 @@ export function LivePreviewPane() {
     stateHeads,
     speakers,
     judges,
+    roomCards,
   } = useDraft();
 
   const viewportWidths = {
@@ -276,6 +277,37 @@ export function LivePreviewPane() {
                 ))}
               </div>
             </section>
+
+            {/* Be In The Room Preview Section */}
+            {roomCards && roomCards.length > 0 && (
+              <section className="pt-8 border-t border-[#19181D]/20">
+                <span className="text-xs font-sans font-semibold uppercase tracking-widest text-[#5D5B62]">
+                  The room
+                </span>
+                <h2 className="font-serif text-3xl mb-4">Be in the Room ({roomCards.length})</h2>
+                
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                  {roomCards.map((c) => (
+                    <div key={c.id} className="p-4 bg-[#EBDBCD] border border-[#19181D]/20 flex flex-col justify-between">
+                      <div>
+                        <div className="flex items-center justify-between text-xs font-mono text-[#FE6500] mb-1">
+                          <span>{c.number || '•'}</span>
+                          {c.badge && <span className="bg-[#19181D] text-[#F5EFE3] px-2 py-0.5 rounded text-[10px]">{c.badge}</span>}
+                        </div>
+                        <h4 className="font-serif text-base font-bold text-[#19181D]">{c.title}</h4>
+                        {c.tagline && <p className="text-xs italic text-[#5D5B62] mb-1">{c.tagline}</p>}
+                        <p className="text-xs text-[#19181D]/80 line-clamp-3 mt-1 font-sans">{c.description}</p>
+                      </div>
+                      {c.highlight_text && (
+                        <span className="mt-3 text-[11px] font-semibold text-[#FE6500] tracking-wide block">
+                          ★ {c.highlight_text}
+                        </span>
+                      )}
+                    </div>
+                  ))}
+                </div>
+              </section>
+            )}
           </div>
         </div>
       </div>

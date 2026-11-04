@@ -8,7 +8,6 @@ import { TestimonialsSection } from "@/components/sections/TestimonialsSection";
 import { StorySection } from "@/components/sections/StorySection";
 import { EventsSection } from "@/components/sections/EventsSection";
 import { StateHeadsSection } from "@/components/sections/StateHeadsSection";
-import { BeInTheRoomSection } from "@/components/sections/BeInTheRoomSection";
 import { SpeakersJudgesSection } from "@/components/sections/SpeakersJudgesSection";
 import { ProgramsSection } from "@/components/sections/ProgramsSection";
 import { FaqSection } from "@/components/sections/FaqSection";
@@ -21,6 +20,8 @@ import type {
   EventItem as DbEventItem,
   TestimonialItem as DbTestimonialItem,
   StateHeadItem as DbStateHeadItem,
+  SpeakerItem as DbSpeakerItem,
+  JudgeItem as DbJudgeItem,
 } from "@/types/database";
 
 export interface LandingExperienceProps {
@@ -28,6 +29,8 @@ export interface LandingExperienceProps {
   events?: DbEventItem[];
   testimonials?: DbTestimonialItem[];
   stateHeads?: DbStateHeadItem[];
+  speakers?: DbSpeakerItem[];
+  judges?: DbJudgeItem[];
 }
 
 function ModalsHost() {
@@ -53,6 +56,8 @@ export function LandingExperience({
   events,
   testimonials,
   stateHeads,
+  speakers,
+  judges,
 }: LandingExperienceProps = {}) {
   return (
     <ModalProvider>
@@ -62,8 +67,8 @@ export function LandingExperience({
       <StorySection />
       <EventsSection events={events} />
       <StateHeadsSection stateHeads={stateHeads} />
-      <BeInTheRoomSection />
-      <SpeakersJudgesSection />
+      {/* BeInTheRoomSection temporarily hidden */}
+      <SpeakersJudgesSection speakers={speakers} judges={judges} />
       <ProgramsSection />
       <FaqSection />
       <ClosingCtaSection />

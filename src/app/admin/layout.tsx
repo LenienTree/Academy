@@ -1,5 +1,6 @@
 import { createClient } from '@/lib/supabase/server';
 import { logout } from './actions';
+import { connection } from 'next/server';
 
 export const instant = false;
 
@@ -8,6 +9,7 @@ export default async function AdminLayout({
 }: {
   children: React.ReactNode;
 }) {
+  await connection();
   const supabase = await createClient();
   const {
     data: { user },

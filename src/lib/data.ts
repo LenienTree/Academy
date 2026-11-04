@@ -1,5 +1,5 @@
 import { createClient } from '@/lib/supabase/server';
-import type { SiteConfig, EventItem, TestimonialItem, StateHeadItem, SpeakerItem, JudgeItem } from '@/types/database';
+import type { SiteConfig, EventItem, TestimonialItem, StateHeadItem, SpeakerItem, JudgeItem, RoomCardItem } from '@/types/database';
 
 // Helper to guarantee media URLs work even if bucket is private
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -18,6 +18,8 @@ async function resolveMediaUrl(supabase: any, url: string | null | undefined): P
   }
 }
 
+const STATIC_FALLBACK_DATE = '2025-01-01T00:00:00.000Z';
+
 export async function getSiteConfig(): Promise<SiteConfig> {
   const supabase = await createClient();
   const { data, error } = await supabase
@@ -35,7 +37,7 @@ export async function getSiteConfig(): Promise<SiteConfig> {
       hero_video_url: '/assets/hero.mp4',
       hero_poster_url: '/assets/hero-poster.jpg',
       reg_url: 'https://www.lenienttree.com/academy',
-      updated_at: new Date().toISOString(),
+      updated_at: STATIC_FALLBACK_DATE,
     };
   }
 
@@ -65,7 +67,7 @@ export async function getEvents(): Promise<EventItem[]> {
         image_url: '/assets/events/evoke.jpg',
         sort_order: 1,
         is_published: true,
-        created_at: new Date().toISOString(),
+        created_at: STATIC_FALLBACK_DATE,
       },
       {
         id: '2',
@@ -76,7 +78,7 @@ export async function getEvents(): Promise<EventItem[]> {
         image_url: '/assets/events/hackinfinity.jpg',
         sort_order: 2,
         is_published: true,
-        created_at: new Date().toISOString(),
+        created_at: STATIC_FALLBACK_DATE,
       },
       {
         id: '3',
@@ -87,7 +89,7 @@ export async function getEvents(): Promise<EventItem[]> {
         image_url: '/assets/events/campus-event-1.jpg',
         sort_order: 3,
         is_published: true,
-        created_at: new Date().toISOString(),
+        created_at: STATIC_FALLBACK_DATE,
       },
       {
         id: '4',
@@ -98,7 +100,7 @@ export async function getEvents(): Promise<EventItem[]> {
         image_url: '/assets/events/gec-thrissur.jpg',
         sort_order: 4,
         is_published: true,
-        created_at: new Date().toISOString(),
+        created_at: STATIC_FALLBACK_DATE,
       },
       {
         id: '5',
@@ -109,7 +111,7 @@ export async function getEvents(): Promise<EventItem[]> {
         image_url: '/assets/events/campus-event-2.jpg',
         sort_order: 5,
         is_published: true,
-        created_at: new Date().toISOString(),
+        created_at: STATIC_FALLBACK_DATE,
       },
     ];
   }
@@ -144,7 +146,7 @@ export async function getTestimonials(): Promise<TestimonialItem[]> {
         stars: 5,
         sort_order: 1,
         is_published: true,
-        created_at: new Date().toISOString(),
+        created_at: STATIC_FALLBACK_DATE,
       },
       {
         id: '2',
@@ -157,7 +159,7 @@ export async function getTestimonials(): Promise<TestimonialItem[]> {
         stars: 5,
         sort_order: 2,
         is_published: true,
-        created_at: new Date().toISOString(),
+        created_at: STATIC_FALLBACK_DATE,
       },
     ];
   }
@@ -180,17 +182,17 @@ export async function getStateHeads(): Promise<StateHeadItem[]> {
 
   if (error || !data || data.length === 0) {
     return [
-      { id: '1', name: 'Samyak Bhangare', title: 'State Head', state: 'Maharashtra', image_url: '/assets/heads/01.webp', sort_order: 1, created_at: new Date().toISOString() },
-      { id: '2', name: 'Pranjal Dey', title: 'Community Head', state: 'West Bengal', image_url: '/assets/heads/02.webp', sort_order: 2, created_at: new Date().toISOString() },
-      { id: '3', name: 'Abhishek Singh', title: 'State Head', state: 'Chhattisgarh', image_url: '/assets/heads/03.webp', sort_order: 3, created_at: new Date().toISOString() },
-      { id: '4', name: 'Dev Shukla', title: 'State Head', state: 'Uttar Pradesh', image_url: '/assets/heads/04.webp', sort_order: 4, created_at: new Date().toISOString() },
-      { id: '5', name: 'Anjal N S', title: 'State Head', state: 'Tamil Nadu', image_url: '/assets/heads/05.webp', sort_order: 5, created_at: new Date().toISOString() },
-      { id: '6', name: 'Mohammed Fayaz', title: 'State Head', state: 'Jammu & Kashmir', image_url: '/assets/heads/06.webp', sort_order: 6, created_at: new Date().toISOString() },
-      { id: '7', name: 'Bhavyakumar Pandya', title: 'State Head', state: 'Gujarat', image_url: '/assets/heads/07.webp', sort_order: 7, created_at: new Date().toISOString() },
-      { id: '8', name: 'Pusp', title: 'State Head', state: 'Bihar', image_url: '/assets/heads/08.webp', sort_order: 8, created_at: new Date().toISOString() },
-      { id: '9', name: 'Meera Surendran', title: 'State Head', state: 'Kerala', image_url: '/assets/heads/09.webp', sort_order: 9, created_at: new Date().toISOString() },
-      { id: '10', name: 'M. V. Reddy', title: 'State Head', state: 'Andhra Pradesh', image_url: '/assets/heads/10.webp', sort_order: 10, created_at: new Date().toISOString() },
-      { id: '11', name: 'Anand Bobba', title: 'State Head', state: 'Telangana', image_url: '/assets/heads/12.webp', sort_order: 11, created_at: new Date().toISOString() },
+      { id: '1', name: 'Samyak Bhangare', title: 'State Head', state: 'Maharashtra', image_url: '/assets/heads/01.webp', sort_order: 1, created_at: STATIC_FALLBACK_DATE },
+      { id: '2', name: 'Pranjal Dey', title: 'Community Head', state: 'West Bengal', image_url: '/assets/heads/02.webp', sort_order: 2, created_at: STATIC_FALLBACK_DATE },
+      { id: '3', name: 'Abhishek Singh', title: 'State Head', state: 'Chhattisgarh', image_url: '/assets/heads/03.webp', sort_order: 3, created_at: STATIC_FALLBACK_DATE },
+      { id: '4', name: 'Dev Shukla', title: 'State Head', state: 'Uttar Pradesh', image_url: '/assets/heads/04.webp', sort_order: 4, created_at: STATIC_FALLBACK_DATE },
+      { id: '5', name: 'Anjal N S', title: 'State Head', state: 'Tamil Nadu', image_url: '/assets/heads/05.webp', sort_order: 5, created_at: STATIC_FALLBACK_DATE },
+      { id: '6', name: 'Mohammed Fayaz', title: 'State Head', state: 'Jammu & Kashmir', image_url: '/assets/heads/06.webp', sort_order: 6, created_at: STATIC_FALLBACK_DATE },
+      { id: '7', name: 'Bhavyakumar Pandya', title: 'State Head', state: 'Gujarat', image_url: '/assets/heads/07.webp', sort_order: 7, created_at: STATIC_FALLBACK_DATE },
+      { id: '8', name: 'Pusp', title: 'State Head', state: 'Bihar', image_url: '/assets/heads/08.webp', sort_order: 8, created_at: STATIC_FALLBACK_DATE },
+      { id: '9', name: 'Meera Surendran', title: 'State Head', state: 'Kerala', image_url: '/assets/heads/09.webp', sort_order: 9, created_at: STATIC_FALLBACK_DATE },
+      { id: '10', name: 'M. V. Reddy', title: 'State Head', state: 'Andhra Pradesh', image_url: '/assets/heads/10.webp', sort_order: 10, created_at: STATIC_FALLBACK_DATE },
+      { id: '11', name: 'Anand Bobba', title: 'State Head', state: 'Telangana', image_url: '/assets/heads/12.webp', sort_order: 11, created_at: STATIC_FALLBACK_DATE },
     ];
   }
 
@@ -213,12 +215,12 @@ export async function getSpeakers(): Promise<SpeakerItem[]> {
 
   if (error || !data || data.length === 0) {
     return [
-      { id: '1', name: 'Name Surname', role_company: 'Founder, Company', image_url: null, sort_order: 1, is_published: true, created_at: new Date().toISOString() },
-      { id: '2', name: 'Name Surname', role_company: 'Business owner, Company', image_url: null, sort_order: 2, is_published: true, created_at: new Date().toISOString() },
-      { id: '3', name: 'Name Surname', role_company: 'Industry mentor', image_url: null, sort_order: 3, is_published: true, created_at: new Date().toISOString() },
-      { id: '4', name: 'Name Surname', role_company: 'Founder, Startup', image_url: null, sort_order: 4, is_published: true, created_at: new Date().toISOString() },
-      { id: '5', name: 'Name Surname', role_company: 'Engineering lead', image_url: null, sort_order: 5, is_published: true, created_at: new Date().toISOString() },
-      { id: '6', name: 'Name Surname', role_company: 'Founder, Company', image_url: null, sort_order: 6, is_published: true, created_at: new Date().toISOString() },
+      { id: '1', name: 'Name Surname', role_company: 'Founder, Company', image_url: null, sort_order: 1, is_published: true, created_at: STATIC_FALLBACK_DATE },
+      { id: '2', name: 'Name Surname', role_company: 'Business owner, Company', image_url: null, sort_order: 2, is_published: true, created_at: STATIC_FALLBACK_DATE },
+      { id: '3', name: 'Name Surname', role_company: 'Industry mentor', image_url: null, sort_order: 3, is_published: true, created_at: STATIC_FALLBACK_DATE },
+      { id: '4', name: 'Name Surname', role_company: 'Founder, Startup', image_url: null, sort_order: 4, is_published: true, created_at: STATIC_FALLBACK_DATE },
+      { id: '5', name: 'Name Surname', role_company: 'Engineering lead', image_url: null, sort_order: 5, is_published: true, created_at: STATIC_FALLBACK_DATE },
+      { id: '6', name: 'Name Surname', role_company: 'Founder, Company', image_url: null, sort_order: 6, is_published: true, created_at: STATIC_FALLBACK_DATE },
     ];
   }
 
@@ -241,12 +243,12 @@ export async function getJudges(): Promise<JudgeItem[]> {
 
   if (error || !data || data.length === 0) {
     return [
-      { id: '1', name: 'Name Surname', role_company: 'Hackathon judge, Founder', image_url: null, sort_order: 1, is_published: true, created_at: new Date().toISOString() },
-      { id: '2', name: 'Name Surname', role_company: 'Industry expert', image_url: null, sort_order: 2, is_published: true, created_at: new Date().toISOString() },
-      { id: '3', name: 'Name Surname', role_company: 'Professor, College', image_url: null, sort_order: 3, is_published: true, created_at: new Date().toISOString() },
-      { id: '4', name: 'Name Surname', role_company: 'Investor, Venture firm', image_url: null, sort_order: 4, is_published: true, created_at: new Date().toISOString() },
-      { id: '5', name: 'Name Surname', role_company: 'Engineering manager', image_url: null, sort_order: 5, is_published: true, created_at: new Date().toISOString() },
-      { id: '6', name: 'Name Surname', role_company: 'Founder, Company', image_url: null, sort_order: 6, is_published: true, created_at: new Date().toISOString() },
+      { id: '1', name: 'Name Surname', role_company: 'Hackathon judge, Founder', image_url: null, sort_order: 1, is_published: true, created_at: STATIC_FALLBACK_DATE },
+      { id: '2', name: 'Name Surname', role_company: 'Industry expert', image_url: null, sort_order: 2, is_published: true, created_at: STATIC_FALLBACK_DATE },
+      { id: '3', name: 'Name Surname', role_company: 'Professor, College', image_url: null, sort_order: 3, is_published: true, created_at: STATIC_FALLBACK_DATE },
+      { id: '4', name: 'Name Surname', role_company: 'Investor, Venture firm', image_url: null, sort_order: 4, is_published: true, created_at: STATIC_FALLBACK_DATE },
+      { id: '5', name: 'Name Surname', role_company: 'Engineering manager', image_url: null, sort_order: 5, is_published: true, created_at: STATIC_FALLBACK_DATE },
+      { id: '6', name: 'Name Surname', role_company: 'Founder, Company', image_url: null, sort_order: 6, is_published: true, created_at: STATIC_FALLBACK_DATE },
     ];
   }
 
@@ -257,5 +259,72 @@ export async function getJudges(): Promise<JudgeItem[]> {
     }))
   );
   return resolvedJudges;
+}
+
+export async function getRoomCards(): Promise<RoomCardItem[]> {
+  try {
+    const supabase = await createClient();
+
+    // Check room_cards first, fallback to room_mentors if named differently
+    const { data, error } = await supabase
+      .from('room_cards')
+      .select('*')
+      .eq('is_published', true)
+      .order('sort_order', { ascending: true });
+
+    if (!error && data && data.length > 0) {
+      return data as RoomCardItem[];
+    }
+  } catch (err) {
+    console.warn('Could not fetch room items from Supabase, using defaults:', err);
+  }
+
+  // Safe fallback to default items
+  return [
+    {
+      id: 'room-card-1',
+      number: '01',
+      title: 'Direct Access to Founders',
+      tagline: 'Unfiltered insights',
+      description: 'Sit across from founders who have built companies from zero to scale.',
+      badge: 'Mentorship',
+      highlight_text: 'Weekly AMA Sessions',
+      sort_order: 1,
+      is_published: true,
+    },
+    {
+      id: 'room-card-2',
+      number: '02',
+      title: 'Live Code & Production Sprints',
+      tagline: 'No sandbox toys',
+      description: 'Ship production code under the supervision of senior engineers.',
+      badge: 'Engineering',
+      highlight_text: 'Zero Mockups',
+      sort_order: 2,
+      is_published: true,
+    },
+    {
+      id: 'room-card-3',
+      number: '03',
+      title: 'Peer Accountability Pods',
+      tagline: 'High density talent',
+      description: 'Surround yourself with builders who move fast. Daily standups and code reviews.',
+      badge: 'Network',
+      highlight_text: 'Curated Cohort',
+      sort_order: 3,
+      is_published: true,
+    },
+    {
+      id: 'room-card-4',
+      number: '04',
+      title: 'Demo Day & Investor Pitches',
+      tagline: 'The arena',
+      description: 'Present your completed product in front of founders and investors.',
+      badge: 'Graduation',
+      highlight_text: 'Live Showcase',
+      sort_order: 4,
+      is_published: true,
+    },
+  ];
 }
 

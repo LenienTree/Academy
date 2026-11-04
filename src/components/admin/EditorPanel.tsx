@@ -7,6 +7,7 @@ import { EventsTab } from './tabs/EventsTab';
 import { TestimonialsTab } from './tabs/TestimonialsTab';
 import { StateHeadsTab } from './tabs/StateHeadsTab';
 import { SpeakersJudgesTab } from './tabs/SpeakersJudgesTab';
+import { RoomTab } from './tabs/RoomTab';
 import { PublishProgressModal } from './PublishProgressModal';
 
 export function EditorPanel() {
@@ -28,13 +29,14 @@ export function EditorPanel() {
       <div className="w-full md:w-[460px] xl:w-[500px] flex-none border-r border-[#19181D]/15 bg-[#EBDBCD] flex flex-col h-[calc(100vh-3.5rem)] overflow-hidden">
         {/* Editor Section Switcher */}
         <div className="flex border-b border-[#19181D]/20 bg-[#F5EFE3] overflow-x-auto text-xs font-sans font-semibold">
-          {(['hero', 'events', 'testimonials', 'stateHeads', 'speakersJudges'] as const).map((tab) => {
+          {(['hero', 'events', 'testimonials', 'stateHeads', 'speakersJudges', 'room'] as const).map((tab) => {
             const labels: Record<string, string> = {
               hero: 'Hero & Media',
               events: 'Events',
               testimonials: 'Testimonials',
               stateHeads: 'State Heads',
               speakersJudges: 'Speakers & Judges',
+              room: 'The Room',
             };
             const isActive = activeTab === tab;
             return (
@@ -61,6 +63,7 @@ export function EditorPanel() {
           {activeTab === 'testimonials' && <TestimonialsTab />}
           {activeTab === 'stateHeads' && <StateHeadsTab />}
           {activeTab === 'speakersJudges' && <SpeakersJudgesTab />}
+          {activeTab === 'room' && <RoomTab />}
         </div>
 
         {/* Persistent Footer Action Bar */}

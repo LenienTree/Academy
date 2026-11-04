@@ -65,6 +65,26 @@ export type JudgeItem = {
   created_at: string;
 };
 
+export type RoomCategory = 'Founders' | 'Academics' | 'Tech';
+
+export type RoomCardItem = {
+  id: string;
+  number?: string;
+  title: string;
+  tagline?: string | null;
+  description: string;
+  badge?: string | null;
+  highlight_text?: string | null;
+  category?: RoomCategory;
+  name?: string;
+  role?: string;
+  image_url?: string | null;
+  sort_order: number;
+  is_published: boolean;
+  created_at?: string;
+  updated_at?: string;
+};
+
 export interface Database {
   public: {
     Tables: {
@@ -102,6 +122,12 @@ export interface Database {
         Row: JudgeItem;
         Insert: Omit<JudgeItem, 'id' | 'created_at'> & { id?: string; created_at?: string };
         Update: Partial<JudgeItem>;
+        Relationships: [];
+      };
+      room_cards: {
+        Row: RoomCardItem;
+        Insert: Partial<RoomCardItem>;
+        Update: Partial<RoomCardItem>;
         Relationships: [];
       };
     };

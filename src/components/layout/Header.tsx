@@ -70,7 +70,7 @@ export function Header() {
         <div className="nr">
           <nav className="nav" aria-label="More sections">
             <Link href="/#programs">Program</Link>
-            <Link href="/#room">Experts</Link>
+            <Link href="/#speakers">Experts</Link>
           </nav>
           <a
             className="btn reg"
@@ -87,7 +87,7 @@ export function Header() {
         <Link href="/#story">About</Link>
         <Link href="/#events">Events</Link>
         <Link href="/#programs">Program</Link>
-        <Link href="/#room">Experts</Link>
+        <Link href="/#speakers">Experts</Link>
       </nav>
 
       <div className="prog" aria-hidden="true">
