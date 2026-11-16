@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import Link from "next/link";
+import Image from "next/image";
 import { notFound } from "next/navigation";
 import { PROGRAMS, TIERS, REGISTRATION_URL, TBA } from "@/data/academyData";
 
@@ -12,6 +13,7 @@ export function generateStaticParams() {
     { slug: "live-classes" },
     { slug: "offline-internship" },
     { slug: "career-accelerator" },
+    { slug: "full-stack-ai" },
   ];
 }
 
@@ -41,8 +43,8 @@ export default async function ProgramPage({ params }: PageProps) {
     notFound();
   }
 
-  const isLiveClasses = slug === "live-classes";
-  const otherPrograms = PROGRAMS.filter((p) => p.key !== slug);
+  const isLiveClasses = slug === "live-classes" || slug === "full-stack-ai";
+  const otherPrograms = PROGRAMS.filter((p) => p.key !== slug && p.key !== "full-stack-ai");
 
   return (
     <main id="view" className="outline-none">
@@ -66,17 +68,41 @@ export default async function ProgramPage({ params }: PageProps) {
               </Link>
             </div>
           </div>
-          <div
-            className="vimg"
-            aria-hidden="true"
-            dangerouslySetInnerHTML={{ __html: program.svgMarkup }}
-          />
+          <div className="vimg" aria-hidden="true">
+            {program.img ? (
+              <Image
+                src={program.img}
+                alt={program.title}
+                width={920}
+                height={920}
+                className="w-full h-full object-cover"
+                priority
+              />
+            ) : (
+              program.svgMarkup && (
+                <div dangerouslySetInnerHTML={{ __html: program.svgMarkup }} />
+              )
+            )}
+          </div>
         </section>
 
         {/* Program details facts */}
         <section className="vsec">
           <div className="vsec-grid">
-            <h2>Program details</h2>
+            <div>
+              <h2>Program details</h2>
+              {program.courseImg && (
+                <div className="mt-6 aspect-square max-w-[260px] overflow-hidden border border-[var(--ink)]">
+                  <Image
+                    src={program.courseImg}
+                    alt="FullStack + AI Course Poster"
+                    width={520}
+                    height={520}
+                    className="w-full h-full object-cover"
+                  />
+                </div>
+              )}
+            </div>
             <dl className="facts">
               {program.facts.map((f, i) => (
                 <div className="frow" key={i}>

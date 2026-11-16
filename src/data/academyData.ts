@@ -357,6 +357,8 @@ export const PROGRAMS: ProgramInfo[] = [
     description:
       "Structured live programs led by founders and the Lenienttree team, with real industry exposure.",
     lead: "Structured live programs led by founders, business owners and the Lenienttree team. You learn the skills and earn recognised certification, in real time, from people who have built things.",
+    img: "/assets/live-classes.png",
+    courseImg: "/assets/full-stack-ai.png",
     facts: [
       { label: "Format", value: "Live sessions, not recorded lectures" },
       {
@@ -375,6 +377,7 @@ export const PROGRAMS: ProgramInfo[] = [
     description:
       "Structured training, then practical offline internships on real projects, so you see how companies operate.",
     lead: "Structured training followed by practical offline internships on real projects, so you see how companies actually operate before your first job.",
+    img: "/assets/offline-internship.png",
     facts: [
       {
         label: "Format",
@@ -393,6 +396,7 @@ export const PROGRAMS: ProgramInfo[] = [
     description:
       "Guidance toward the career you choose, or a company of your own, with support for promising ideas.",
     lead: "Guidance toward the path you choose: a first job, further study or a company of your own. Selected students and graduates can move into the Prototype Track.",
+    img: "/assets/career-accelerator.png",
     facts: [
       { label: "Focus", value: "Career guidance and founder development" },
       { label: "Prototype Track", value: "For selected students and graduates" },
@@ -404,6 +408,27 @@ export const PROGRAMS: ProgramInfo[] = [
       { label: "Eligibility", value: TBA },
     ],
     svgMarkup: `<svg viewBox="0 0 320 352" preserveAspectRatio="xMidYMid slice" aria-hidden="true" class="w-full h-full block"><rect width="320" height="352" fill="#F5EFE3"/><rect x="24" y="288" width="55" height="44" fill="#19181D"/><rect x="79" y="244" width="55" height="88" fill="#19181D"/><rect x="134" y="200" width="55" height="132" fill="#19181D"/><rect x="189" y="156" width="55" height="176" fill="#19181D"/><rect x="244" y="112" width="55" height="220" fill="#FE6500"/><circle cx="136" cy="196" r="13" fill="#D8A27A"/><rect x="124" y="208" width="24" height="36" fill="#FE6500"/><path d="M40 140L220 56" stroke="#FE6500" stroke-width="10" stroke-linecap="round" fill="none"/><path d="M196 36L246 52L214 94Z" fill="#FE6500"/><rect x="236" y="104" width="56" height="56" fill="#19181D"/><use href="#L" x="251" y="112" width="26" height="40" fill="#fff"/></svg>`,
+  },
+  {
+    key: "full-stack-ai",
+    title: "FullStack + AI",
+    description:
+      "17 days of sharp theory, followed by 13 days of real product building with React, Node.js, and Supabase.",
+    lead: "Practical knowledge from founders and industry mentors. 17 days of theory, then 13 days of building real production applications.",
+    img: "/assets/full-stack-ai.png",
+    facts: [
+      { label: "Format", value: "Live sessions, not recorded lectures" },
+      {
+        label: "Stack",
+        value: "React, Node.js + Express, Supabase, Agentic AI",
+      },
+      {
+        label: "Structure",
+        value: "17 days theory + 13 days production building",
+      },
+      { label: "Certification", value: "Recognised certification" },
+      { label: "Schedule", value: TBA },
+    ],
   },
 ];
 

@@ -1,7 +1,10 @@
 import Link from "next/link";
+import Image from "next/image";
 import { PROGRAMS } from "@/data/academyData";
 
 export function ProgramsSection() {
+  const pathwayPrograms = PROGRAMS.filter((p) => p.key !== "full-stack-ai");
+
   return (
     <section className="sec deep" id="programs">
       <div className="wrap">
@@ -14,17 +17,27 @@ export function ProgramsSection() {
         </div>
 
         <div className="pgrid" id="pgrid">
-          {PROGRAMS.map((program) => (
+          {pathwayPrograms.map((program) => (
             <Link
               key={program.key}
               className="pcard reveal"
               href={`/programs/${program.key}`}
             >
-              <div
-                className="pimg"
-                aria-hidden="true"
-                dangerouslySetInnerHTML={{ __html: program.svgMarkup }}
-              />
+              <div className="pimg" aria-hidden="true">
+                {program.img ? (
+                  <Image
+                    src={program.img}
+                    alt={program.title}
+                    width={640}
+                    height={704}
+                    className="w-full h-full object-cover"
+                  />
+                ) : (
+                  program.svgMarkup && (
+                    <div dangerouslySetInnerHTML={{ __html: program.svgMarkup }} />
+                  )
+                )}
+              </div>
               <h3>{program.title}</h3>
               <p>{program.description}</p>
               <span className="more">See plans →</span>

@@ -82,7 +82,9 @@ export interface ProgramInfo {
   description: string;
   lead: string;
   facts: ProgramFact[];
-  svgMarkup: string;
+  svgMarkup?: string;
+  img?: string;
+  courseImg?: string;
 }
 
 export interface ProgramTier {
