@@ -87,14 +87,12 @@ export function HeroSection({ siteConfig }: HeroSectionProps = {}) {
             {subText}
           </p>
           <div className="cta-row">
-            <a
+            <Link
               className="btn reg"
-              href={regUrl}
-              target="_blank"
-              rel="noopener noreferrer"
+              href={regUrl.startsWith("/") ? regUrl : "/register/course/fullstack-ai"}
             >
               Join FullStack+AI
-            </a>
+            </Link>
             <Link className="btn line" href="/#story">
               See the pathway →
             </Link>

@@ -11,7 +11,7 @@ import {
   Pillar,
 } from "@/types/academy";
 
-export const REGISTRATION_URL = "https://www.lenienttree.com/academy";
+export const REGISTRATION_URL = "/register/course/fullstack-ai";
 export const TBA = "To be added";
 export const LINKEDIN_URL = "https://www.linkedin.com/";
 export const IN_URL = LINKEDIN_URL;

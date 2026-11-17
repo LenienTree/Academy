@@ -1,3 +1,4 @@
+import Link from "next/link";
 import { REGISTRATION_URL } from "@/data/academyData";
 
 export function ClosingCtaSection() {
@@ -11,14 +12,12 @@ export function ClosingCtaSection() {
           <em>Labels later.</em>
         </h2>
         <div className="cta-row">
-          <a
+          <Link
             className="btn reg"
             href={REGISTRATION_URL}
-            target="_blank"
-            rel="noopener noreferrer"
           >
             Join FullStack+AI
-          </a>
+          </Link>
         </div>
       </div>
     </section>

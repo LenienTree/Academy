@@ -72,14 +72,12 @@ export function Header() {
             <Link href="/#programs">Program</Link>
             <Link href="/#speakers">Experts</Link>
           </nav>
-          <a
+          <Link
             className="btn reg"
-            href="https://www.lenienttree.com/academy"
-            target="_blank"
-            rel="noopener noreferrer"
+            href="/register"
           >
             Register
-          </a>
+          </Link>
         </div>
       </div>
 
@@ -88,6 +86,7 @@ export function Header() {
         <Link href="/#events">Events</Link>
         <Link href="/#programs">Program</Link>
         <Link href="/#speakers">Experts</Link>
+        <Link href="/register">Register</Link>
       </nav>
 
       <div className="prog" aria-hidden="true">

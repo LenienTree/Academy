@@ -17,32 +17,44 @@ export function ProgramsSection() {
         </div>
 
         <div className="pgrid" id="pgrid">
-          {pathwayPrograms.map((program) => (
-            <Link
-              key={program.key}
-              className="pcard reveal"
-              href={`/programs/${program.key}`}
-            >
-              <div className="pimg" aria-hidden="true">
-                {program.img ? (
-                  <Image
-                    src={program.img}
-                    alt={program.title}
-                    width={640}
-                    height={704}
-                    className="w-full h-full object-cover"
-                  />
-                ) : (
-                  program.svgMarkup && (
-                    <div dangerouslySetInnerHTML={{ __html: program.svgMarkup }} />
-                  )
-                )}
-              </div>
-              <h3>{program.title}</h3>
-              <p>{program.description}</p>
-              <span className="more">See plans →</span>
-            </Link>
-          ))}
+          {pathwayPrograms.map((program) => {
+            const isComingSoon = program.key !== "live-classes";
+            return (
+              <Link
+                key={program.key}
+                className="pcard reveal"
+                href={`/programs/${program.key}`}
+              >
+                <div className="pimg" aria-hidden="true">
+                  {program.img ? (
+                    <Image
+                      src={program.img}
+                      alt={program.title}
+                      width={640}
+                      height={704}
+                      className="w-full h-full object-cover"
+                    />
+                  ) : (
+                    program.svgMarkup && (
+                      <div dangerouslySetInnerHTML={{ __html: program.svgMarkup }} />
+                    )
+                  )}
+                </div>
+                <div className="flex items-center justify-between gap-2">
+                  <h3>{program.title}</h3>
+                  {isComingSoon && (
+                    <span className="flex-none px-2 py-0.5 bg-[var(--ink)]/10 text-[var(--ink)] text-[10px] font-sans font-bold uppercase tracking-wider rounded">
+                      Coming Soon
+                    </span>
+                  )}
+                </div>
+                <p>{program.description}</p>
+                <span className="more">
+                  {isComingSoon ? "Coming Soon →" : "See plans →"}
+                </span>
+              </Link>
+            );
+          })}
         </div>
       </div>
     </section>

@@ -56,13 +56,31 @@ export default async function ProgramPage({ params }: PageProps) {
         {/* Hero */}
         <section className="vhero">
           <div>
-            <p className="eyebrow">Lenienttree Academy · Program</p>
+            <p className="eyebrow flex items-center gap-2">
+              <span>Lenienttree Academy · Program</span>
+              {!isLiveClasses && (
+                <span className="px-2 py-0.5 bg-[var(--ink)]/10 text-[var(--ink)] text-[10px] font-sans font-bold uppercase tracking-wider rounded">
+                  Coming Soon
+                </span>
+              )}
+            </p>
             <h1>{program.title}</h1>
             <p className="lede">{program.lead}</p>
             <div className="cta-row">
-              <a className="btn" href="#plans">
-                Choose your plan
-              </a>
+              {isLiveClasses ? (
+                <a className="btn" href="#plans">
+                  Choose your plan
+                </a>
+              ) : (
+                <button
+                  type="button"
+                  disabled
+                  aria-disabled="true"
+                  className="btn opacity-50 cursor-not-allowed pointer-events-none select-none"
+                >
+                  Coming Soon
+                </button>
+              )}
               <Link className="btn line" href="/#programs">
                 Other programs
               </Link>
@@ -153,14 +171,12 @@ export default async function ProgramPage({ params }: PageProps) {
                   ))}
                 </ul>
                 {isLiveClasses ? (
-                  <a
+                  <Link
                     className={`btn ${tier.top ? "" : "line"}`}
-                    href={REGISTRATION_URL}
-                    target="_blank"
-                    rel="noopener noreferrer"
+                    href={`/register/course/fullstack-ai?tier=${tier.name.toLowerCase()}`}
                   >
                     Choose {tier.name} →
-                  </a>
+                  </Link>
                 ) : (
                   <button
                     type="button"

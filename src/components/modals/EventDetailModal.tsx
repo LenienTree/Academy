@@ -3,6 +3,7 @@
 import React, { useEffect, useRef } from "react";
 import Image from "next/image";
 import { EventItem } from "@/types/academy";
+import Link from "next/link";
 import { TBA, REGISTRATION_URL } from "@/data/academyData";
 
 interface EventDetailModalProps {
@@ -105,14 +106,13 @@ export function EventDetailModal({ event, onClose }: EventDetailModalProps) {
           </p>
 
           <div className="cta-row">
-            <a
+            <Link
               className="btn"
               href={REGISTRATION_URL}
-              target="_blank"
-              rel="noopener noreferrer"
+              onClick={onClose}
             >
               Join the next event &rarr;
-            </a>
+            </Link>
             <button className="btn line" type="button" onClick={onClose}>
               Back to events
             </button>
