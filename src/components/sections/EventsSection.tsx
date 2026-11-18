@@ -18,21 +18,21 @@ export function EventsSection({ events }: EventsSectionProps = {}) {
   const items: EventItem[] =
     events && events.length > 0
       ? events.map((e, idx) => {
-          if ("is_published" in e) {
-            return {
-              id: e.id,
-              t: e.title,
-              title: e.title,
-              venue: e.venue,
-              date: e.date,
-              about: e.about,
-              details: e.about,
-              img: e.image_url || "/assets/events/campus-event-1.jpg",
-              sceneSeed: idx + 1,
-            };
-          }
-          return e;
-        })
+        if ("is_published" in e) {
+          return {
+            id: e.id,
+            t: e.title,
+            title: e.title,
+            venue: e.venue,
+            date: e.date,
+            about: e.about,
+            details: e.about,
+            img: e.image_url || "/assets/events/campus-event-1.jpg",
+            sceneSeed: idx + 1,
+          };
+        }
+        return e;
+      })
       : EVENTS;
 
   return (
@@ -80,7 +80,7 @@ export function EventsSection({ events }: EventsSectionProps = {}) {
         ))}
       </Marquee>
 
-      <div className="wrap center-btn">
+      <div className="wrap center-btn flex justify-end">
         <a
           className="btn"
           href="https://www.lenienttree.com"
