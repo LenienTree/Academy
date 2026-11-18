@@ -10,6 +10,7 @@ import {
   formatInr,
 } from '@/lib/register/courses';
 import { validateRegistrationInput } from '@/lib/register/validate';
+import { CourseScheduleOverview } from './CourseScheduleOverview';
 import type {
   BatchItem,
   PaymentPlanKey,
@@ -167,12 +168,6 @@ export function CourseEnrollmentWizard({
       {/* Sticky Top Bar */}
       <header className="border-b border-[#19181D]/15 bg-[#F5EFE3] sticky top-0 z-30">
         <div className="max-w-5xl mx-auto px-6 h-16 flex items-center justify-between">
-          <Link href="/" className="flex items-center gap-2.5">
-            <span className="w-8 h-8 bg-[#FE6500] text-white font-bold flex items-center justify-center">
-              L
-            </span>
-            <span className="font-serif text-xl tracking-tight">Lenienttree Academy</span>
-          </Link>
           <Link
             href="/register"
             className="text-xs font-sans font-semibold uppercase tracking-wider text-[#5D5B62] hover:text-[#19181D]"
@@ -265,6 +260,9 @@ export function CourseEnrollmentWizard({
               </div>
             )}
 
+            {/* Comprehensive Syllabus & Schedule Overview */}
+            <CourseScheduleOverview />
+
             {/* Tier Cards */}
             <div>
               <h2 className="font-serif text-2xl mb-4">Choose Your Learning Tier</h2>
@@ -276,11 +274,10 @@ export function CourseEnrollmentWizard({
                       key={tier.key}
                       type="button"
                       onClick={() => setSelectedTier(tier.key)}
-                      className={`text-left p-6 border-[1.5px] transition-all flex flex-col justify-between ${
-                        isSelected
+                      className={`text-left p-6 border-[1.5px] transition-all flex flex-col justify-between ${isSelected
                           ? 'bg-[#19181D] text-[#F5EFE3] border-[#19181D] shadow-[5px_5px_0px_#FE6500]'
                           : 'bg-[#F5EFE3] text-[#19181D] border-[#19181D]/40 hover:border-[#19181D]'
-                      }`}
+                        }`}
                     >
                       <div>
                         <div className="flex items-center justify-between">
@@ -288,9 +285,8 @@ export function CourseEnrollmentWizard({
                             {tier.tag}
                           </span>
                           <span
-                            className={`w-4 h-4 rounded-full border flex items-center justify-center ${
-                              isSelected ? 'border-[#FE6500] bg-[#FE6500]' : 'border-current'
-                            }`}
+                            className={`w-4 h-4 rounded-full border flex items-center justify-center ${isSelected ? 'border-[#FE6500] bg-[#FE6500]' : 'border-current'
+                              }`}
                           >
                             {isSelected && <span className="w-1.5 h-1.5 rounded-full bg-[#19181D]" />}
                           </span>
@@ -366,11 +362,10 @@ export function CourseEnrollmentWizard({
                     key={plan.key}
                     type="button"
                     onClick={() => setSelectedPlan(plan.key)}
-                    className={`text-left p-6 border-[1.5px] transition-all flex flex-col justify-between ${
-                      isSelected
+                    className={`text-left p-6 border-[1.5px] transition-all flex flex-col justify-between ${isSelected
                         ? 'bg-[#19181D] text-[#F5EFE3] border-[#19181D] shadow-[5px_5px_0px_#FE6500]'
                         : 'bg-[#EBDBCD] text-[#19181D] border-[#19181D]/40 hover:border-[#19181D]'
-                    }`}
+                      }`}
                   >
                     <div className="space-y-3">
                       <div className="flex items-center justify-between gap-2">
@@ -378,9 +373,8 @@ export function CourseEnrollmentWizard({
                           {plan.badge}
                         </span>
                         <span
-                          className={`w-4 h-4 rounded-full border flex items-center justify-center ${
-                            isSelected ? 'border-[#FE6500] bg-[#FE6500]' : 'border-current'
-                          }`}
+                          className={`w-4 h-4 rounded-full border flex items-center justify-center ${isSelected ? 'border-[#FE6500] bg-[#FE6500]' : 'border-current'
+                            }`}
                         >
                           {isSelected && <span className="w-1.5 h-1.5 rounded-full bg-[#19181D]" />}
                         </span>

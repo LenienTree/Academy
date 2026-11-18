@@ -8,7 +8,7 @@ export function ProgramsSection() {
   return (
     <section className="sec deep" id="programs">
       <div className="wrap">
-        <div className="sec-head reveal">
+        <div className="sec-head reveal !gap-2 !mb-6 md:!mb-8">
           <p className="eyebrow">The pathway</p>
           <h2 className="h2">Three ways in.</h2>
           <p className="lede">
@@ -16,7 +16,7 @@ export function ProgramsSection() {
           </p>
         </div>
 
-        <div className="pgrid" id="pgrid">
+        <div className="pgrid !gap-y-20 md:!gap-y-10 lg:!gap-y-12 !gap-x-8 lg:!gap-x-12" id="pgrid">
           {pathwayPrograms.map((program) => {
             const isComingSoon = program.key !== "live-classes";
             return (
@@ -40,16 +40,16 @@ export function ProgramsSection() {
                     )
                   )}
                 </div>
-                <div className="flex items-center justify-between gap-2">
-                  <h3>{program.title}</h3>
+                <div className="flex items-center justify-between gap-2 mt-4">
+                  <h3 className="!mt-0">{program.title}</h3>
                   {isComingSoon && (
                     <span className="flex-none px-2 py-0.5 bg-[var(--ink)]/10 text-[var(--ink)] text-[10px] font-sans font-bold uppercase tracking-wider rounded">
                       Coming Soon
                     </span>
                   )}
                 </div>
-                <p>{program.description}</p>
-                <span className="more">
+                <p className="!mt-2">{program.description}</p>
+                <span className="more !mt-3.5">
                   {isComingSoon ? "Coming Soon →" : "See plans →"}
                 </span>
               </Link>

@@ -3,6 +3,7 @@ import Link from "next/link";
 import Image from "next/image";
 import { notFound } from "next/navigation";
 import { PROGRAMS, TIERS, REGISTRATION_URL, TBA } from "@/data/academyData";
+import { CourseScheduleOverview } from "@/components/common/CourseScheduleOverview";
 
 interface PageProps {
   params: Promise<{ slug: string }>;
@@ -68,9 +69,14 @@ export default async function ProgramPage({ params }: PageProps) {
             <p className="lede">{program.lead}</p>
             <div className="cta-row">
               {isLiveClasses ? (
-                <a className="btn" href="#plans">
-                  Choose your plan
-                </a>
+                <>
+                  <a className="btn" href="#plans">
+                    Choose your plan
+                  </a>
+                  <a className="btn line" href="#syllabus">
+                    View Syllabus ↓
+                  </a>
+                </>
               ) : (
                 <button
                   type="button"
@@ -133,6 +139,13 @@ export default async function ProgramPage({ params }: PageProps) {
             </dl>
           </div>
         </section>
+
+        {/* Live Classes Full Curriculum & Schedule Overview */}
+        {isLiveClasses && (
+          <section className="vsec" id="syllabus">
+            <CourseScheduleOverview showBorder={false} />
+          </section>
+        )}
 
         {/* Plans and Tiers */}
         <section className="vsec" id="plans">

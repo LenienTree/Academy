@@ -93,9 +93,6 @@ export function HeroSection({ siteConfig }: HeroSectionProps = {}) {
             >
               Join FullStack+AI
             </Link>
-            <Link className="btn line" href="/#story">
-              See the pathway →
-            </Link>
           </div>
           <p className="scrollhint">
             <i aria-hidden="true" />
