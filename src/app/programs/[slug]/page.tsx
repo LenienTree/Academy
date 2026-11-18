@@ -171,9 +171,18 @@ export default async function ProgramPage({ params }: PageProps) {
                 <h3>{tier.name}</h3>
                 <p className="fee">
                   Fee
-                  <b className="tba">
-                    {isLiveClasses ? "To be added" : "Coming soon"}
-                  </b>
+                  {isLiveClasses && tier.fee ? (
+                    <>
+                      <b>{tier.fee}</b>
+                      {tier.deposit && (
+                        <span className="block text-xs font-sans mt-1 opacity-75">
+                          or {tier.deposit} seat deposit
+                        </span>
+                      )}
+                    </>
+                  ) : (
+                    <b className="tba">Coming soon</b>
+                  )}
                 </p>
                 <ul>
                   {tier.inherit && (
@@ -205,7 +214,7 @@ export default async function ProgramPage({ params }: PageProps) {
           </div>
           <p className="plan-note">
             {isLiveClasses
-              ? "Fees and dates will be shown here once confirmed."
+              ? "One-time full payment includes an instant ₹500 fee waiver. Flexible 2-part split installment plans available at checkout."
               : "Admissions for this program will open soon. Stay tuned for dates and curriculum details."}
           </p>
         </section>

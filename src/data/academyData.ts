@@ -362,12 +362,12 @@ export const PROGRAMS: ProgramInfo[] = [
     facts: [
       { label: "Format", value: "Live sessions, not recorded lectures" },
       {
-        label: "FullStack+AI",
-        value: "17 days of theory, then 13 days of building",
+        label: "Structure",
+        value: "14 days live training + 4-day project + 10-day hackathon",
       },
       { label: "Certification", value: "Recognised certification" },
-      { label: "Schedule", value: TBA },
-      { label: "Syllabus", value: TBA },
+      { label: "Fee", value: "Starting from ₹8,500" },
+      { label: "Schedule", value: "29 Days Total (Evening Cohort)" },
     ],
     svgMarkup: `<svg viewBox="0 0 320 352" preserveAspectRatio="xMidYMid slice" aria-hidden="true" class="w-full h-full block"><rect width="320" height="352" fill="#19181D"/><rect x="28" y="20" width="64" height="24" fill="#FE6500"/><text x="40" y="37" font-family="Inter,sans-serif" font-size="11" font-weight="700" letter-spacing="2" fill="#19181D">LIVE</text><rect x="28" y="60" width="264" height="170" fill="#F5EFE3"/><circle cx="92" cy="128" r="26" fill="#D8A27A"/><path d="M52 230C52 188 70 168 92 168C114 168 132 188 132 230Z" fill="#FE6500"/><path d="M66 120C66 98 80 92 92 92C104 92 118 98 118 120C112 110 104 106 92 106C80 106 72 110 66 120Z" fill="#19181D"/><rect x="156" y="84" width="112" height="12" fill="#19181D"/><rect x="156" y="108" width="84" height="12" fill="#FE6500"/><rect x="156" y="132" width="100" height="6" fill="#5D5B62"/><rect x="156" y="148" width="70" height="6" fill="#5D5B62"/><rect x="28" y="248" width="150" height="26" fill="#F5EFE3"/><rect x="118" y="284" width="174" height="26" fill="#FE6500"/><circle cx="46" cy="332" r="9" fill="#F1C9A5"/><circle cx="76" cy="332" r="9" fill="#8D5A3B"/><circle cx="106" cy="332" r="9" fill="#B97B54"/><circle cx="136" cy="332" r="9" fill="#F6D8C2"/></svg>`,
   },
@@ -436,20 +436,36 @@ export const TIERS: ProgramTier[] = [
   {
     name: "Sprout",
     tag: "Standard",
-    items: ["Live classes", "Mentorship from founders and industry mentors"],
+    fee: "₹8,500",
+    deposit: "₹3,000",
+    items: [
+      "All 30 days of live FullStack + AI sessions",
+      "Mentorship from founders and industry mentors",
+      "Recognised Lenienttree Academy certification",
+    ],
   },
   {
     name: "Sapling",
-    tag: "Upgraded",
+    tag: "Most Popular",
+    fee: "₹11,500",
+    deposit: "₹4,000",
     inherit: "Sprout",
-    items: ["Attend five hackathons a year"],
+    items: [
+      "Attend five Lenienttree hackathons a year",
+      "Priority 1-on-1 project code reviews",
+    ],
   },
   {
     name: "Tree",
     tag: "Complete",
     top: true,
+    fee: "₹14,500",
+    deposit: "₹5,000",
     inherit: "Sapling",
-    items: ["Lenienttree goodies: notebook, tote and bottle"],
+    items: [
+      "Lenienttree merchandise kit: notebook, tote & bottle",
+      "Direct Prototype Track evaluation eligibility",
+    ],
   },
 ];
 

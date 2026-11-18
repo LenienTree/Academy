@@ -93,6 +93,8 @@ export interface ProgramTier {
   inherit?: string;
   top?: boolean;
   items: string[];
+  fee?: string;
+  deposit?: string;
 }
 
 export interface Pillar {
